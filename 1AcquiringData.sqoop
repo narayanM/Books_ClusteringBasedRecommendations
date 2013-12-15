@@ -1,0 +1,30 @@
+Note: This doc uses of HDFS and SQOOP in fetching data from MySQL.
+Note: We have Books and Users tables in MYSQL. and Bookratings.csv in HDFS.
+
+
+
+$ cd ~/1Acquire_data
+
+
+
+Reviewing the structure of both books and users tables from MYSQL:
+$ mysql --user=root --password=root bookcrossing -e "DESCRIBE books"
+
+$ mysql --user=root --password=root bookcrossing -e "SELECT * FROM books LIMIT 5"
+	
+$ mysql --user=root --password=root bookcrossing -e "DESCRIBE users"
+
+$ mysql --user=root --password=root bookcrossing -e "SELECT * FROM users LIMIT 5"
+
+
+	
+Importing books & users tables from MySQL to HDFS using ***Sqoop***
+List databases
+$ sqoop list-databases --connect jdbc:mysql://localhost --username root --password root
+
+List Tables
+$ sqoop list-tables --connect jdbc:mysql://localhost/bookcrossing --username root --password root
+
+$ sqoop import --connect jdbc:mysql://localhost/bookcrossing --username root --password root --fields-terminated-by '\t' --warehouse-dir /bookrecos --table books
+
+$ sqoop import --connect jdbc:mysql://localhost/bookcrossing --username root --password root --fields-terminated-by '\t' --warehouse-dir /bookrecos --table users

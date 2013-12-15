@@ -1,0 +1,63 @@
+Change the current directory to part 6 exercise folder
+$ cd ~/certification_materials/data_science/exercises/part6_*
+
+To Copy the head and tail parts to HDFS:
+$ hadoop fs -mkdir /clouderabooks/part6
+
+$ hadoop fs -put ../part5*/head* /clouderabooks/part6/.
+$ hadoop fs -put ../part5*/cl* /clouderabooks/part6/.
+
+6.1 To run the Mahout Item based Recommender on Head part:
+NOTE: Make sure you clear the temporary data created by Mahout: $ hadoop fs -rm -r temp/*
+
+$ mahout recommenditembased \
+--input /user/hive/warehouse/mahout_input_a/000000_0 \
+--output /clouderabooks/part6/head_recs \
+--usersFile /clouderabooks/part6/head_users.tsv \
+--itemsFile /clouderabooks/part6/head_books.tsv \
+-s SIMILARITY_PEARSON_CORRELATION -n 5
+
+To check the result of above: 
+$ hadoop fs -cat /clouderabooks/part6/head_recs/par* | head -n 3
+17	[590944649:5.1416135,446608890:5.1416135,425179885:5.1416135,446610100:5.1416135,451201256:5.1416135]
+99	[446606324:9.188349,679457526:8.239938,446527017:8.196726,804111359:7.9524927,140288503:6.9925213]
+114	[671027387:9.60748,553579606:9.0,440224721:9.0,743437802:8.875235,553571818:8.821323]
+
+6.2 To run the Mahout Item based Recommender on Tail Clusters:
+NOTE: Make sure you clear the temporary data created by Mahout: $ hadoop fs -rm -r temp/*
+
+$ mahout recommenditembased \
+--input /user/hive/warehouse/mahout_input_a/000000_0 \
+--output /clouderabooks/part6/cl1_recs \
+--usersFile /clouderabooks/part6/cl1_users.tsv \
+--itemsFile /clouderabooks/part6/cl1_books.tsv \
+-s SIMILARITY_PEARSON_CORRELATION -n 5
+
+$ mahout recommenditembased \
+--input /user/hive/warehouse/mahout_input_a/000000_0 \
+--output /clouderabooks/part6/cl2_recs \
+--usersFile /clouderabooks/part6/cl2_users.tsv \
+--itemsFile /clouderabooks/part6/cl2_books.tsv \
+-s SIMILARITY_PEARSON_CORRELATION -n 5
+
+Repeat the above for the rest of the clusters as well.
+Number of lines of Head and Tail Cluster outputs:
+$ hadoop fs -cat /clouderabooks/part6/head_recs/part* | wc -l
+10398
+
+$ hadoop fs -cat /clouderabooks/part6/cl1_recs/part* | wc -l
+0
+$ hadoop fs -cat /clouderabooks/part6/cl2_recs/part* | wc -l
+4099
+$ hadoop fs -cat /clouderabooks/part6/cl3_recs/part* | wc -l
+7
+$ hadoop fs -cat /clouderabooks/part6/cl4_recs/part* | wc -l
+10804
+$ hadoop fs -cat /clouderabooks/part6/cl5_recs/part* | wc -l
+507
+
+Number of lines from Head and Tail outputs, altogether:
+Head (10398) + Tail (0 + 4099 + 7 + 10804 + 507) = 25815
+Number of lines after Joining  above all together & sorting out UNIQUE recommendations:
+$ cat /home/training/Desktop/step6Sorted.txt | cut -f 1 | uniq | wc -l
+13405

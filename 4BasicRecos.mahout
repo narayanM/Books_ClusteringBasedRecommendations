@@ -1,0 +1,61 @@
+Change the current directory to part 4 exercise folder
+$ cd ~/certification_materials/data_science/exercises/part4_basic_reco*
+			
+Mahout Item recommender Engine with Pearson Correlation Similarity:
+$ mahout recommenditembased \
+--input /user/hive/warehouse/mahout_input_a/000000_0 \
+--output /clouderabooks/bookratings/bookrecs_a_PearsonCorr \
+-s SIMILARITY_PEARSON_CORRELATION -n 5
+
+NOTE: Though here the input is a hive table, we pass the path to the physical location of that table, as shown above.
+	
+NOTE: The execution of above commands takes a good amount of ~5 mins. Because our data (bookratings) is ~27MB, and Mahout runs a series of MapReduce jobs. Check this out, which are the temporary files that Mahout generates: 
+$ hadoop fs -ls temp
+NOTE: Clear the temporary data created by Mahout. This is required before you re-run the mahout command again. Run this: $ hadoop fs -rm -r temp/*
+
+Check the output of above Mahout Recommender:
+$ hadoop fs -cat /clouderabooks/bookratings/bookrecs_a_PearsonCorr/part* | head -n 3
+
+17	[307000826:5.1416135,590400258:5.1416135,380718057:5.1416135,446608890:5.1416135,891075933:5.1416135]
+92	[8432215007:9.51617,8478446400:9.51617,8420465666:9.51617,1864503157:9.51617,8466311815:9.417333]
+99	[446606324:9.188349,679457526:8.239938,446527017:8.196726,804111359:7.9524927,140288503:6.9925213]
+
+
+
+$ hadoop fs -cat /clouderabooks/bookratings/bookrecs_a_Pearson*/part* | wc -l
+14048
+
+Here we are able to provide recommendations to 14048 unique users with one or more books. 
+You can also use other similarity functions like:  SIMILARITY_EUCLIDEAN_DISTANCE, and many more based on data and requirement.
+
+These are our initial set of recommendations, generated using Mahout’s Item based Recommender Engine.
+
+Observation: Mahout Item based recommender’s CLI supports more options. We can limit the results of a Recommender Engine to a specific set of users and Items. For this we can use -userFile and -itemFile options. These are helpful in part 5 of this practice lab. So a brief overview:
+
+Taking 1000 userids:
+$ hadoop fs -cat /user/hive/warehouse/mahout_input_a/* | cut -d "," -f 1 | sort -n | uniq | tail -n 6000 | head -n 1000 > mahout_userFileOption_test.txt
+
+Taking 10,000 bookisbns:
+$ hadoop fs -cat /user/hive/warehouse/mahout_input_a/* | cut -d "," -f 2 | sort -n | uniq | tail -n 60000 | head -n 10000 > mahout_itemFileOption_test.txt
+
+Place these into HDFS:
+$ hadoop fs -put mahout_userFileOption_test.txt /clouderabooks/bookratings/
+$ hadoop fs -put mahout_itemFileOption_test.txt /clouderabooks/bookratings/
+
+
+
+So I chosed 1000 userIDs and 10,000 bookISBNs and forcing mahout to limit its results to these specific 1000 userIDs and 10,000 bookISBNs:
+
+NOTE: Clear the temporary data created by previous mahout command: $ hadoop fs -rm -r temp/*
+
+$ mahout recommenditembased \
+--input /user/hive/warehouse/mahout_input_a/000000_0 \
+--output /clouderabooks/bookratings/bookrecs_a_EucDist_uiFile \
+--usersFile /clouderabooks/bookratings/mahout_userFileOption_test.txt \
+--itemsFile /clouderabooks/bookratings/mahout_itemFileOption_test.txt \
+-s SIMILARITY_EUCLIDEAN_DISTANCE -n 5
+
+$ hadoop fs -cat /clouderabooks/bookratings/bookrecs_a_EucDist*/part* | wc -l
+43
+
+As we restricted Mahout to recommend for only 1000 users and 10,000 books, we got only 43 results. The use of these options will be more evident in part 5.
