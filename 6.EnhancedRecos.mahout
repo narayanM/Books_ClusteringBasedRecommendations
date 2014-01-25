@@ -1,5 +1,6 @@
-Change the current directory to part 6 exercise folder
-$ cd ~/certification_materials/data_science/exercises/part6_*
+# This Mahout notes, re-run the recommendation engine on Analyzed data.
+
+
 
 To Copy the head and tail parts to HDFS:
 $ hadoop fs -mkdir /clouderabooks/part6

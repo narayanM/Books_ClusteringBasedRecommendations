@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# This python script also cleans the other data input files. adds the missing year values, removes extra tab charac, etc. 
 
 import sys
 

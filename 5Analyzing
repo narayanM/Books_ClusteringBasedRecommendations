@@ -1,9 +1,6 @@
-Note: Following is in 'R', Hive and HDFS:
+Note: Following is in 'R', Hive and HDFS: This notes analyses the previous results, to make better results.
 
 
-
-Change the current directory to part 5 exercise folder
-$ cd ~/certification_materials/data_science/exercises/part5_analyze_data
 
 5.1 Dividing the data into Head and Tail parts:
 Using Hive to filter out the records of mahout_input_a_dvs table with booktotalratings >= 25:

@@ -1,3 +1,5 @@
+-- This Hive query creates a new table, by removing NULL values. This makes INPUT ready for MAHOUT analysis.
+
 -- Load the bookratings records from Hive table to a new table without NULL’s.
 
 -- Drop the table, if it is already exist. useful when running the script multiple times.

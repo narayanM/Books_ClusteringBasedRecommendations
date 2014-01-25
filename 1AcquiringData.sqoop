@@ -3,10 +3,6 @@ Note: We have Books and Users tables in MYSQL. and Bookratings.csv in HDFS.
 
 
 
-$ cd ~/1Acquire_data
-
-
-
 Reviewing the structure of both books and users tables from MYSQL:
 $ mysql --user=root --password=root bookcrossing -e "DESCRIBE books"
 

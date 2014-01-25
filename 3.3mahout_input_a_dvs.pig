@@ -1,6 +1,7 @@
 -- This Apache Pig script calculates Book and User Derived Variables and JOINs them with mahout_input_a data. 
 -- This single pig script does the combined job of 2 hive scripts in this part 3 of the practice lab.
 
+
 -- To Import the Hive table data (part 2 output) into pig to calculate DV's.
 input_a = LOAD '/user/hive/warehouse/mahout_input_a/000000_0' USING PigStorage(',') AS (userid:long, bookisbn:long, rating:float);
 -- We define the ratings field as float, instead of int, because: float data type is required, in order to get the double datatype for the results of EVALs like: AVG, SUM.

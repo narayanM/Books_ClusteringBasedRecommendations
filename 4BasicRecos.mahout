@@ -1,5 +1,5 @@
-Change the current directory to part 4 exercise folder
-$ cd ~/certification_materials/data_science/exercises/part4_basic_reco*
+# This Mahout notes is about running the Recommendation engine on the derived variables data.
+
 			
 Mahout Item recommender Engine with Pearson Correlation Similarity:
 $ mahout recommenditembased \

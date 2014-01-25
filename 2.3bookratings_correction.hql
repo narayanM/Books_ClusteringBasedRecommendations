@@ -1,3 +1,5 @@
+-- This Hive query, creates an external Hive table on the bookratings file on HDFS.
+
 -- Load the bookratings.csv file from HDFS to Hive as an external table.
 
 -- The hive-contrib JAR is needed to support the RegexSerDe. add it.

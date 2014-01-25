@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# This python script cleans the data.
 
 import sys
 
