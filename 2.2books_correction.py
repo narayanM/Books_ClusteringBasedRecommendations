@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# This python script also cleans the other data input files. adds the missing year values, removes extra tab charac, etc. 
+# This python script also cleans the other dataset file: BOOKS. adds the missing year values, removes extra tab charac, etc. 
+# These are identified based on manual observations.
 
 import sys
 

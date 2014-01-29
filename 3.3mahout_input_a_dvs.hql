@@ -1,5 +1,7 @@
 -- This Hive query joins the 3 previously created tables: mahout_input_a, books_dvs, users_dvs.
 
+
+
 -- drop if this table already existed.
 drop table mahout_input_a_dvs;
 

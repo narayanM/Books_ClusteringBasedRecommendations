@@ -1,5 +1,6 @@
 # This Mahout notes is about running the Recommendation engine on the derived variables data.
 
+
 			
 Mahout Item recommender Engine with Pearson Correlation Similarity:
 $ mahout recommenditembased \

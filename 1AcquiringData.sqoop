@@ -1,4 +1,4 @@
-Note: This doc uses of HDFS and SQOOP in fetching data from MySQL.
+Note: This doc shows usage of SQOOP in fetching data from MySQL.
 Note: We have Books and Users tables in MYSQL. and Bookratings.csv in HDFS.
 
 

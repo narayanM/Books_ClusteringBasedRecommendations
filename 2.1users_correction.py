@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# This python script cleans the data.
+# This python script cleans the USERS data, based on the manual observations.
 
 import sys
 

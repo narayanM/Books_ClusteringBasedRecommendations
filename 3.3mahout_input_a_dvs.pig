@@ -1,5 +1,6 @@
 -- This Apache Pig script calculates Book and User Derived Variables and JOINs them with mahout_input_a data. 
--- This single pig script does the combined job of 2 hive scripts in this part 3 of the practice lab.
+-- This single pig script does the combined job of previous 2 hive scripts.
+
 
 
 -- To Import the Hive table data (part 2 output) into pig to calculate DV's.
